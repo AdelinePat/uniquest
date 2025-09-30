@@ -13,5 +13,7 @@ Make sure to check those items from `Generate .csproj files for`:
 - Local packages ✅
 - Registry packages ✅
 - Git packages ✅
+
 If you had to check some boxes, click on `regenerate project files`.
+
 6. All future script will be in Assets > Scripts
