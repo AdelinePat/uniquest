@@ -1,6 +1,9 @@
 # uniquest
 Small RPG in Unity
 
+# Stack 
+- Unity 6.2 (6.000.2.6f1 from september 2025)
+- C#
 
 # Install
 1. Download Unity Hub and create account on https://unity.com/download ( if you already have an account you can just login here https://unity.com/fr )
