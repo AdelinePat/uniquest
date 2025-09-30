@@ -1,6 +1,12 @@
 # uniquest
 Small RPG in Unity
 
+# Git workflow (for team)
+Please never use `git add .` but add Assets/Scripts/ only instead making sure you won't add unecessary files to distant repository
+```bash
+git add Assets/Scripts
+```
+
 # Stack 
 - Unity 6.2 (6.000.2.6f1 from september 2025)
 - C#
