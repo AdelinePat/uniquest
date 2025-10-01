@@ -1,5 +1,5 @@
 # uniquest
-Small RPG in Unity
+Small RPG in Unity for a school projet. It is not meant for commercial use, it is only meant to learn how to use Unity without minding Assets creation and all.
 
 # Git workflow (for team)
 Please never use `git add .` but add Assets/Scripts/ only instead making sure you won't add unecessary files to distant repository
@@ -24,5 +24,10 @@ Make sure to check those items from `Generate .csproj files for`:
 - Git packages ✅
 
 If you had to check some boxes, click on `regenerate project files`.
+
+# Assets 
+- We are using [Tiny Swords](https://pixelfrog-assets.itch.io/tiny-swords) asset pack from PixelFrog
+- We downloaded the `TS_old version_CC0 Licensed` (jan 03, 2024).
+- Creator of this pack is PixelFrog [PixelFrog instagram](https://www.instagram.com/pixelfrogstudio/) & [PixelFrog twitter](https://x.com/PixelFrogStudio)
 
 6. All future script will be in Assets > Scripts
