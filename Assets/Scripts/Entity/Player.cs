@@ -2,26 +2,28 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerMovements : MonoBehaviour
-{
-
-    public float speed = 5;
+public class Player : Entity {
     public Rigidbody2D rb;
 
     public Animator anim;
 
     public int facingDirection = 1;
 
-    // private Vector2 movement; 
 
-    void Start()
-    {
-
+    public override void attack(GameObject target) {
+        Debug.Log("le joueur attaque");
+        target.GetComponent<Enemy>().getHealth().getDamage(this.getStrength());
     }
-    
 
-    void Update()
-    {
+    void Start() {
+        this.setSpeed(5f);
+        Health health = new Health(20, 20, 0);
+        this.setHealth(health);
+        this.setStrength(2);
+        this.getHealth().setDefense(0);
+    }
+
+    public override void move() {
         float horizontal = Input.GetAxisRaw("Horizontal"); // Left/right arrows
         float vertical = Input.GetAxisRaw("Vertical");   // Up/down arrows
 
@@ -34,8 +36,7 @@ public class PlayerMovements : MonoBehaviour
 
         anim.SetFloat("horizontal", Mathf.Abs(horizontal));
         anim.SetFloat("vertical", Mathf.Abs(vertical));
-        rb.linearVelocity = new Vector2(horizontal, vertical) * this.speed;
-
+        rb.linearVelocity = new Vector2(horizontal, vertical) * this.getSpeed();
     }
 
     void Flip()
@@ -43,4 +44,10 @@ public class PlayerMovements : MonoBehaviour
         facingDirection *= -1;
         transform.localScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
     }
+
+    void Update() {
+        this.move();
+    }
+
+
 }
