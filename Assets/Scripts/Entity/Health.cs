@@ -1,49 +1,52 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
-public class Health : MonoBehaviour {
-    private int currentHealth;
-    private int maxHealth;
-    private int defense;
+using System;
 
-    public Health(int maxHealth, int health, int defense) {
+[Serializable]
+public class Health {
+    [SerializeField] private int currentHealth;
+    [SerializeField] private int maxHealth;
+
+    public Health(int maxHealth,
+                int health) {
         this.maxHealth = maxHealth;
         this.currentHealth = health;
-        this.defense = defense;
     }
 
-    public void getDamage(int damage) {
-        this.setCurrentHealth(this.currentHealth - damage);
+    public void GetDamage(int damage) {
 
-        if (currentHealth <= 0) {
-            gameObject.SetActive(false);
+        if (this.currentHealth - damage < 0) {
+           this.SetCurrentHealth(0);
+        } else {
+           this.SetCurrentHealth(this.currentHealth - damage);
         }
     }
 
-    public int getMaxHealth() {
+    public int GetMaxHealth() {
         return this.maxHealth;
     }
 
-    public int getCurrentHealth() {
+    public int GetCurrentHealth() {
         return this.currentHealth;
     }
 
-    public int getDefense() {
-        return this.defense;
-    }
-
-
-    public void setMaxHealth(int newValue) {
+    public void SetMaxHealth(int newValue) {
         this.maxHealth = newValue;
     }
 
-    public void setCurrentHealth(int newValue) {
+    public void SetCurrentHealth(int newValue) {
         this.currentHealth = newValue;      
     }
 
-    public void setDefense(int newValue) {
-        this.defense = newValue;
+    private void Start() {
     }
 
+    public string ToJson() {
+        return JsonUtility.ToJson(this, true);
+    }
+
+   
 }
