@@ -1,31 +1,65 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+
+using System;
+
 
 public class Player : Entity {
+
+    
+    public static Player instance;
+
     public Rigidbody2D rb;
 
     public Animator anim;
 
     public int facingDirection = 1;
 
+    public Bag bag;
 
-    public override void attack(GameObject target) {
-        Debug.Log("le joueur attaque");
-        target.GetComponent<Enemy>().getHealth().getDamage(this.getStrength());
+    private bool loadedFromSave = false;
+
+    public Player(
+        Health health,
+        Attack attack,
+        Bag bag,
+        int level,
+        bool isInArena,
+        float speed,
+        float arenaSpeed,
+        int facingDirection) {
+            this.health = health;
+            this.attack = attack;
+            this.bag = bag;
+            this.SetLevel(level);
+            this.isInArena = isInArena;
+            this.SetSpeed(speed);
+            this.SetArenaSpeed(arenaSpeed);
+            this.facingDirection = facingDirection;
     }
 
     void Start() {
-        this.setSpeed(5f);
-        Health health = new Health(20, 20, 0);
-        this.setHealth(health);
-        this.setStrength(2);
-        this.getHealth().setDefense(0);
+
+        if (instance != this) return;
+        if (loadedFromSave) return; // skip default setup if loaded
+
+        Debug.Log($"rb assigned? {rb != null}");
+        Debug.Log($"anim assigned? {anim != null}");
+
+        Debug.Log($"Speed at start: {this.GetSpeed()}");
+
+        // Default setup for NEW game
+        
+
+        this.random = new System.Random();
+
     }
 
-    public override void move() {
-        float horizontal = Input.GetAxisRaw("Horizontal"); // Left/right arrows
-        float vertical = Input.GetAxisRaw("Vertical");   // Up/down arrows
+    public override void Move() {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
 
 
         if (horizontal > 0 && transform.localScale.x < 0 ||
@@ -36,7 +70,10 @@ public class Player : Entity {
 
         anim.SetFloat("horizontal", Mathf.Abs(horizontal));
         anim.SetFloat("vertical", Mathf.Abs(vertical));
-        rb.linearVelocity = new Vector2(horizontal, vertical) * this.getSpeed();
+        if (rb != null) {
+            // rb.linearVelocity = new Vector2(horizontal, vertical) * this.GetSpeed();
+            rb.linearVelocity = new Vector2(horizontal, vertical) * this.GetSpeed();
+        }
     }
 
     void Flip()
@@ -46,8 +83,33 @@ public class Player : Entity {
     }
 
     void Update() {
-        this.move();
+        this.Move();
     }
 
+     void Awake()
+    {
+          if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (anim == null) anim = GetComponent<Animator>();
+
+        if (PlayerHolder.LoadedPlayerData != null)
+        {
+            SaveSystem.LoadPlayer(instance, PlayerHolder.LoadedPlayerData);
+            loadedFromSave = true;
+            PlayerHolder.LoadedPlayerData = null; // clear after applying
+        } else {
+            this.ApplyDefaultStats();
+            Debug.Log($"Defense : {this.GetAttack().GetDefense()}");
+        }
+    }
 
 }

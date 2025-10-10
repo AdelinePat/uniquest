@@ -13,8 +13,6 @@ public class ElevationExit : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Warrior entered trigger!");
-
             foreach (TilemapCollider2D mountain in mountainColliders)
             {
                 if (mountain != null)
