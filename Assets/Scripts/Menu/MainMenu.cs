@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         // SaveSystem.DeleteSave();
+        PlayerHolder.LoadedPlayerData = null;
         SceneManager.LoadScene("SampleScene"); // your overworld scene
     }
 
