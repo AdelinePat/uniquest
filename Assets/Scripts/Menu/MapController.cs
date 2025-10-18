@@ -43,13 +43,23 @@ public class MapController : MonoBehaviour
         SaveSystem.SavePlayer(player);
     }
 
+    // QUIT BUTTON FROM MAP CONTROLLER => RETURN BUTTON TO MAIN MENU 
     public void Quit()
     {
-        Application.Quit();
+        PlayerHolder.LoadedPlayerData = null;
+
+        if (Player.instance != null)
+        {
+            Destroy(Player.instance.gameObject);
+            Player.instance = null; // clear static reference
+        }
+
+        SceneManager.LoadScene("MainMenu");
+        // Application.Quit();
         // for testing
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+        // #if UNITY_EDITOR
+        //     UnityEditor.EditorApplication.isPlaying = false;
+        // #endif
     }
 
     public void InitializeBag(Player newEntity, TMP_Text newText, Bag bag = null) {
