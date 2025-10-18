@@ -100,8 +100,6 @@ If you had to check some boxes, click on `regenerate project files`.
 
 6. All future script will be in Assets > Scripts
 
----
-
 # Contributing This project was made by:
 
 - [Thibault Caron](https://github.com/thibault-caron)
@@ -111,3 +109,12 @@ If you had to check some boxes, click on `regenerate project files`.
 ### Licence
 
 This project is licensed under the MIT License.
+
+---
+
+## 🎮 Download the Game
+
+👉 [**Download UniQuest (Windows build)**](https://github.com/thibault-caron/uniquest/releases)  
+Download the `.rar` file from the latest release, extract it, then launch `uniquest.exe`.
+
+---
